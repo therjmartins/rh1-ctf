@@ -1,0 +1,82 @@
+- name: create  and groups 
+  hosts: server2
+  vars:
+    password: "@#FD12"
+  tasks:
+    - name: create groups
+      ansible.builtin.group:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - sales
+        - suppport
+        - services
+        - IT
+
+    - name: create sale users
+      ansible.builtin.user:
+        name: 
+          - frank
+          - annabelle
+        group: sales
+        state: present
+        password: "{{ password }}"
+    
+    - name: create support users
+      ansible.builtin.user:
+        name: 
+          - carl
+          - dyson
+          - gerry
+        group: support
+        state: present
+        password: "{{ password }}"
+
+    - name: create services users
+      ansible.builtin.user:
+        name: 
+          - jameson
+          - isabella
+        group: services
+        state: present
+        password: "{{ password }}"
+
+    - name: create IT users
+      ansible.builtin.user:
+        name: 
+          - harold
+          - evert
+          - bob
+        group: IT
+        state: present
+        password: "{{ password }}"
+
+    - name: set SSH key for users
+      ansible.posix.authorized_key:
+        user: "{{ item }}"
+        state: present
+        key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFN90Xtfjxqs2ZpO0VqR1jr92mJiTx3IaEl/F+LiOZJK
+        valdate_certs: false
+      loop: 
+        - frank
+        - annabelle
+        - carl
+        - dyson
+        - gerry
+        - jameson
+        - isabella
+        - harold
+        - evert
+        - bob
+
+
+
+
+
+
+
+
+
+
+
+
