@@ -1,7 +1,7 @@
 - name: create  and groups 
   hosts: server2
   vars:
-    password: "@#FD12"
+    password: "{{ '@#FD12' | password_hash('sha512') }}"
   tasks:
     - name: create groups
       ansible.builtin.group:
