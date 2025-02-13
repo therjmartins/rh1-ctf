@@ -26,7 +26,7 @@
     - name: create support users
       ansible.builtin.user:
         name: "{{ item }}"
-        group: support
+        group: Support
         state: present
         password: "{{ '@#FD12' | password_hash('sha512') }}"
       loop:
@@ -37,7 +37,7 @@
     - name: create services users
       ansible.builtin.user:
         name: "{{ item }}"
-        group: services
+        group: Services
         state: present
         password: "{{ '@#FD12' | password_hash('sha512') }}"
       loop:
