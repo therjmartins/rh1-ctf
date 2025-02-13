@@ -1,7 +1,7 @@
 - name: create  and groups 
   hosts: server2
   vars:
-    password: "{{ '@#FD12' | password_hash('sha512') }}"
+    password: 
   tasks:
     - name: create groups
       ansible.builtin.group:
@@ -20,7 +20,7 @@
           - annabelle
         group: sales
         state: present
-        password: "{{ password }}"
+        password: "{{ '@#FD12' | password_hash('sha512') }}"
     
     - name: create support users
       ansible.builtin.user:
@@ -30,7 +30,7 @@
           - gerry
         group: support
         state: present
-        password: "{{ password }}"
+        password: "{{ '@#FD12' | password_hash('sha512') }}"
 
     - name: create services users
       ansible.builtin.user:
@@ -39,7 +39,7 @@
           - isabella
         group: services
         state: present
-        password: "{{ password }}"
+        password: "{{ '@#FD12' | password_hash('sha512') }}"
 
     - name: create IT users
       ansible.builtin.user:
@@ -49,7 +49,7 @@
           - bob
         group: IT
         state: present
-        password: "{{ password }}"
+        password: "{{ '@#FD12' | password_hash('sha512') }}"
 
     - name: set SSH key for users
       ansible.posix.authorized_key:
