@@ -15,12 +15,13 @@
 
     - name: create sale users
       ansible.builtin.user:
-        name: 
-          - frank
-          - annabelle
+        name: "{{ item }}"
         group: sales
         state: present
         password: "{{ '@#FD12' | password_hash('sha512') }}"
+      loop:
+        - frank
+        - annabelle
     
     - name: create support users
       ansible.builtin.user:
