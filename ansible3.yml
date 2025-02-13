@@ -1,0 +1,33 @@
+- name: CTF Ansible 2
+  hosts:
+    - server2
+  tasks:
+
+  - name: Create a new primary partition with a size of 1GiB
+    community.general.parted:
+      device: /dev/nvme1n1
+      number: 1
+      state: present
+      part_end: 1GiB
+  
+  - name: Create a xfs4 filesystem on /dev/nvme1n1
+    community.general.filesystem:
+      fstype: xfs4
+      dev: /dev/nvme1n1
+  
+  - name: Mount up device
+    ansible.posix.mount:
+      src: /dev/nvme1n1
+      path: /extdrive
+      fstype: xfs4
+      state: mounted
+
+  - name: Change file ownership, group, permissions
+    ansible.builtin.file:
+      path: /extdrive
+      owner: root
+      group: IT
+      mode: '0660'
+
+  
+
