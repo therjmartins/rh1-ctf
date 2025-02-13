@@ -9,7 +9,7 @@
         state: present
       loop:
         - sales
-        - suppport
+        - support
         - services
         - IT
 
@@ -25,33 +25,34 @@
     
     - name: create support users
       ansible.builtin.user:
-        name: 
-          - carl
-          - dyson
-          - gerry
+        name: "{{ item }}"
         group: support
         state: present
         password: "{{ '@#FD12' | password_hash('sha512') }}"
+      loop:
+        - carl
+        - dyson
+        - gerry
 
     - name: create services users
       ansible.builtin.user:
-        name: 
-          - jameson
-          - isabella
+        name: "{{ item }}"
         group: services
         state: present
         password: "{{ '@#FD12' | password_hash('sha512') }}"
-
+      loop:
+        - jameson
+        - isabella
     - name: create IT users
       ansible.builtin.user:
-        name: 
-          - harold
-          - evert
-          - bob
+        name: "{{ item }}"
         group: IT
         state: present
         password: "{{ '@#FD12' | password_hash('sha512') }}"
-
+      loop:
+          - harold
+          - evert
+          - bob
     - name: set SSH key for users
       ansible.posix.authorized_key:
         user: "{{ item }}"
